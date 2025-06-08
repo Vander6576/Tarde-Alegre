@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de Visitantes - Tarde Alegre</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .form-control::placeholder {
+      color: #aaa;
+    }
+    label {
+      font-weight: 500;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    header img {
+      max-height: 80px;
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-4">
+  <!-- Cabeçalho com logo -->
+  <header class="mb-2">
+    <img src="logo_depin.JPG" alt="Logo da Igreja">
+    <h2 class="text-primary">Cadastro de Visitantes - Tarde Alegre</h2>
+    <img src="logo_depin.JPG" alt="Logo da Igreja">
+  </header>
+  <hr class="mb-4"> <!-- Linha horizontal -->
+
+  <form action="processa_cadastro.php" method="POST">
+    <!-- Informações do Visitante -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-success text-white">👤 Informações do Visitante</div>
+      <div class="card-body row g-3">
+        <div class="col-md-6">
+          <label>Nome completo:</label>
+          <input type="text" name="nome_completo" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label>Idade:</label>
+          <input type="number" name="idade" class="form-control" min="0" required>
+        </div>
+        <div class="col-md-4">
+          <label>CEP:</label>
+          <input type="text" name="cep" class="form-control" id="cep" placeholder="00000-000" pattern="\d{5}-\d{3}" maxlength="9" required>
+        </div>
+        <div class="col-md-5">
+          <label>Endereço:</label>
+          <input type="text" name="endereco" class="form-control" id="endereco" required>
+        </div>
+        <div class="col-md-3">
+          <label>Número:</label>
+          <input type="text" name="numero" class="form-control" pattern="\d{1,5}" maxlength="5" required>
+        </div>
+        <div class="col-md-6">
+          <label>Nome do Responsável:</label>
+          <input type="text" name="responsavel" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label>Telefone do Responsável:</label>
+          <input type="tel" name="telefone_responsavel" class="form-control" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" placeholder="(99) 99999-9999" maxlength="15" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orientações -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-warning">📋 Orientações Específicas</div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label>Possui alguma alergia a alimentos? Se sim, qual?</label>
+          <textarea name="alergias" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="mb-3">
+          <label>Existe algo importante que precisamos saber?</label>
+          <textarea name="informacoes_importantes" class="form-control" rows="2"></textarea>
+        </div>
+        <label>Qual a sua relação com a Igreja Evangélica atualmente?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="relacao_igreja" value="afastado">
+          <label class="form-check-label">Sou afastado do evangelho</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="relacao_igreja" value="outra_religiao">
+          <label class="form-check-label">Sou de outra religião</label>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="radio" name="relacao_igreja" value="nunca_fui">
+          <label class="form-check-label">Nunca fui a uma igreja evangélica</label>
+        </div>
+
+        <div class="mb-3">
+          <label>Deseja pedir uma oração por algo específico?</label>
+          <textarea name="pedido_oracao" class="form-control" rows="2"></textarea>
+        </div>
+
+        <!-- Checkbox de autorização -->
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" name="autorizacao_evento" value="sim">
+          <label class="form-check-label">Autorizo a participação da criança no evento</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cadastro da Sede -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-info text-white">👧 Cadastro da Criança da Sede</div>
+      <div class="card-body row g-3">
+        <div class="col-md-6">
+          <label>Nome completo da criança da sede:</label>
+          <input type="text" name="crianca_sede" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Idade:</label>
+          <input type="number" name="idade_crianca_sede" class="form-control" min="0">
+        </div>
+        <div class="col-md-3">
+          <label>Quantos visitantes estará trazendo?</label>
+          <input type="number" name="quantidade_visitantes" class="form-control" min="0">
+        </div>
+      </div>
+    </div>
+
+    <!-- Termo de Compromisso -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-secondary text-white">📌 Termo de Compromisso</div>
+      <div class="card-body">
+        <p>Assumo a responsabilidade pelas informações fornecidas e declaro que são verdadeiras.</p>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" name="termo" value="sim" required>
+          <label class="form-check-label">SIM, ASSUMO A RESPONSABILIDADE</label>
+        </div>
+        <div class="mb-3">
+          <label>Seu nome completo:</label>
+          <input type="text" name="nome_autor" class="form-control" required>
+        </div>
+        <p class="text-danger">⚠️ OBS: A inscrição só será finalizada após obtermos o número de contato do responsável da criança visitante.</p>
+      </div>
+    </div>
+
+    <!-- Botão de Envio -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-success btn-lg">✅ Enviar Cadastro</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script para preencher endereço pelo CEP -->
+<script>
+  document.getElementById('cep').addEventListener('blur', function () {
+    const cep = this.value.replace(/\D/g, '');
+    if (cep.length === 8) {
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.erro) {
+            document.getElementById('endereco').value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+          }
+        });
+    }
+  });
+</script>
+
+</body>
+</html>
